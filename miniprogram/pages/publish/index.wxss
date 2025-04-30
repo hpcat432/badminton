@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #ffffff;
+}
+
+.container text {
+  font-size: 32rpx;
+  color: #333333;
+}
+
+.publish-btn {
+  width: 80%;
+  height: 88rpx;
+  line-height: 88rpx;
+  background: #07C160;
+  color: #ffffff;
+  font-size: 32rpx;
+  border-radius: 44rpx;
+  margin-top: 40rpx;
+} 

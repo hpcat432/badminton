@@ -1,3 +1,9 @@
 <view class="container">
-  <view class="hello-world">Hello World</view>
+  <view class="activity-list">
+    <view class="activity-item" wx:for="{{activityList}}" wx:key="_id">
+      <view class="activity-title">{{item.title}}</view>
+      <view class="activity-content">{{item.startTime}}</view>
+      <view class="activity-content">{{item.endTime}}</view>
+    </view>
+  </view>
 </view> 

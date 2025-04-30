@@ -7,6 +7,14 @@ Page({
     steps: QuickStartSteps,
   },
 
+  onShow() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected:0
+      })
+    }
+  },
+
   copyCode(e) {
     const code = e.target?.dataset?.code || '';
     wx.setClipboardData({

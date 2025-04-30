@@ -16,4 +16,52 @@ App({
 
     this.globalData = {};
   },
+
+  getUserInfo: function() {
+    // 检查是否已登录
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          wx.getUserInfo({
+            success: res => {
+              this.globalData.userInfo = res.userInfo;
+              this.syncUserInfo(res.userInfo);
+            }
+          });
+        } else {
+          // 未授权，引导用户授权
+          wx.authorize({
+            scope: 'scope.userInfo',
+            success: () => {
+              wx.getUserInfo({
+                success: res => {
+                  this.globalData.userInfo = res.userInfo;
+                  this.syncUserInfo(res.userInfo);
+                }
+              });
+            }
+          });
+        }
+      }
+    });
+  },
+
+  syncUserInfo: function(userInfo) {
+    // 调用云函数同步用户信息
+    wx.cloud.callFunction({
+      name: 'quickstartFunctions',
+      data: {
+        type: 'syncUserInfo',
+        userInfo: userInfo
+      },
+      config: {
+        env: 'cloud1-4gwxmwly93725352'
+      }
+    }).then(res => {
+      console.log('用户信息同步成功', res);
+    }).catch(err => {
+      console.error('用户信息同步失败', err);
+    });
+  }
 });
