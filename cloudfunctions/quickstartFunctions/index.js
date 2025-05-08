@@ -8,6 +8,8 @@ const fetchGoodsList = require('./fetchGoodsList/index');
 const genMpQrcode = require('./genMpQrcode/index');
 const fetchActivityList = require('./fetchActivityList/index');
 const createActivity = require('./createActivity/index');
+const createUser = require('./user/createUser/index');
+const getUser = require('./user/getUser/index');
 const cloud = require('wx-server-sdk');
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }); // 使用当前云环境
@@ -71,6 +73,10 @@ exports.main = async (event, context) => {
       return await genMpQrcode.main(event, context);
     case 'fetchActivityList':
       return await fetchActivityList.main(event, context);
+    case 'createUser':
+      return await createUser.main(event, context);
+    case 'getUser':
+      return await getUser.main(event, context);
     case 'createActivity':
       try {
         // 先获取用户信息

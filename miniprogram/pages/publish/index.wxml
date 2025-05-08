@@ -1,4 +1,32 @@
 <!--pages/publish/index.wxml-->
 <view class="container">
+  <view class="top-input-container">
+    <text class="label">名称</text>
+    <input class="name-input" placeholder="请输入活动名称" bindinput="onInput" />
+  </view>
+
+  <view class="section-container">
+    <view class="section-item">
+      <text class="label">名称</text>
+      <input class="name-input" placeholder="请输入活动名称" bindinput="onInput" />
+    </view>
+    <view class="section-item">
+      <text class="label">名称</text>
+      <input class="name-input" placeholder="请输入活动名称" bindinput="onInput" />
+    </view>
+    <view class="section-item">
+      <text class="label">名称</text>
+      <input class="name-input" placeholder="请输入活动名称" bindinput="onInput" />
+    </view>
+    <view class="section-item">
+      <text class="label">名称</text>
+      <input class="name-input" placeholder="请输入活动名称" bindinput="onInput" />
+    </view>
+  </view>
+
+  <view bind:tap="gotoMap">
+    <text>地图</text>
+  </view>
+
   <button class="publish-btn" bindtap="handlePublish">发布活动</button>
 </view>

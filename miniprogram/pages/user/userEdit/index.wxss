@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color: #f5f5f5;
+}
+
+.item_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 96rpx;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.avatar_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar {
+  width: 180rpx;
+  height: 180rpx;
+  /* background-color: #e5e5e5; */
+  border-radius: 50%;
+}
+
+.arrow_icon {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.custom-button {
+    background-color: #150443;
+    color: white; /* 文字颜色改成白色 */
+    border-radius: 8px; /* 设置圆角，数值可根据需求调整 */
+    border: none; /* 去除默认边框 */
+    padding: 10px 20px; /* 设置内边距，使按钮更美观 */
+    text-align: center; /* 文字居中 */
+    font-size: 16px; /* 设置文字大小 */
+}

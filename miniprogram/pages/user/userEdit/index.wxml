@@ -1,0 +1,16 @@
+<!--pages/publish/index.wxml-->
+<view class="container">
+
+  <button class="avatar_container" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+    <image class="avatar" src="{{avatarUrl}}" mode="widthFix" />
+  </button>
+
+  <view class="item_container">
+    <view class="left">
+      <text>昵称</text>
+      <input type="nickname" class="weui-input" placeholder="请输入昵称" bindinput="onInput" value="{{userName}}"/>
+    </view>
+  </view>
+
+  <button class="custom-button" bind:tap="onConfirmChange">确认</button>
+</view>

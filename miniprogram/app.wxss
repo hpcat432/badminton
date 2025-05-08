@@ -25,3 +25,7 @@ page {
   flex-direction: column;
   justify-content: flex-start;
 }
+
+:root {
+  --theme-color: #150443; /* 定义主题色 */
+}
