@@ -16,14 +16,17 @@ exports.main = async (event, context) => {
     const result = await db.collection('activity').add({
       data: {
         title: event.title || '新活动',
-        description: event.description || '活动描述',
         startTime: event.startTime || now,
         endTime: event.endTime || new Date(now.getTime() + 24 * 60 * 60 * 1000),
-        createTime: now,
-        updateTime: now,
-        status: 'active',
-        creator: wxContext.OPENID,
-        participants: []
+        createTime: event.createTime,
+        status: 'activeeeeee',
+        creatorId: wxContext.OPENID,
+        owner: event.userInfo,
+        participants: [event.userInfo],
+        location: event.location,
+        placeNum: event.placeNum,
+        memberNum: event.memberNum,
+        selectedTags: event.selectedTags,
       }
     })
     return {

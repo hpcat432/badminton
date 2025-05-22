@@ -78,41 +78,7 @@ exports.main = async (event, context) => {
     case 'getUser':
       return await getUser.main(event, context);
     case 'createActivity':
-      try {
-        // 先获取用户信息
-        const userInfo = await db.collection('user').where({
-          _openid: wxContext.OPENID
-        }).get();
-        
-        const now = new Date();
-        const result = await db.collection('activity').add({
-          data: {
-            title: event.title || '新活动',
-            description: event.description || '活动描述',
-            startTime: event.startTime || now,
-            endTime: event.endTime || new Date(now.getTime() + 24 * 60 * 60 * 1000),
-            createTime: now,
-            updateTime: now,
-            status: 'active',
-            creator: wxContext.OPENID,
-            creatorInfo: userInfo.data.length > 0 ? userInfo.data[0] : {
-              nickname: '未设置昵称',
-              avatarUrl: ''
-            },
-            participants: []
-          }
-        });
-        return {
-          success: true,
-          data: result
-        };
-      } catch (err) {
-        console.error('创建活动失败', err);
-        return {
-          success: false,
-          error: err
-        };
-      }
+      return await createActivity.main(event, context);
     default:
       return {
         success: false,

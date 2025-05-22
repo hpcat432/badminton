@@ -1,32 +1,88 @@
 <!--pages/publish/index.wxml-->
 <view class="container">
-  <view class="top-input-container">
-    <text class="label">名称</text>
-    <input class="name-input" placeholder="请输入活动名称" bindinput="onInput" />
-  </view>
+  <scroll-view class="scroll-container" scroll-y>
+    <view class="section-container">
+      <view class="section-item">
+        <text class="label">活动名称</text>
+        <input class="name-input-margin-right" placeholder="请输入活动名称" bindinput="onInput" />
+      </view>
+      <view class="section-item">
+        <text class="label">日期</text>
+        <picker class="picker" mode="date" value="{{date}}" bindchange="onDateChange">
+          <view class="picker">{{date || '请选择日期'}}</view>
+        </picker>
+        <image class="icon" src="/images/arrow.svg" />
+      </view>
+      <view class="section-item">
+        <text class="label">开始时间</text>
+        <picker class="picker" mode="time" value="{{startTime}}" bindchange="onStartTimeChange">
+          <view class="picker">{{startTime || '请选择开始时间'}}</view>
+        </picker>
+        <image class="icon" src="/images/arrow.svg" />
+      </view>
+      <view class="section-item">
+        <text class="label">结束时间</text>
+        <picker class="picker" mode="time" value="{{endTime}}" bindchange="onEndTimeChange">
+          <view class="picker">{{endTime || '请选择结束时间'}}</view>
+        </picker>
+        <image class="icon" src="/images/arrow.svg" />
+      </view>
+      <view class="section-item" bind:tap="gotoMap">
+        <text class="label">地点</text>
+        <text class="name-input">{{location}}</text>
+        <image class="icon" src="/images/arrow.svg" />
+      </view>
+      <view class="section-item">
+        <text class="label">场地号</text>
+        <input class="name-input" placeholder="请输入场地号" bindinput="onInputPlaceNum" />
+      </view>
+    </view>
 
-  <view class="section-container">
-    <view class="section-item">
-      <text class="label">名称</text>
-      <input class="name-input" placeholder="请输入活动名称" bindinput="onInput" />
+    <view class="section-container">
+      <view class="section-item" bindtap="showTrainingPopup">
+        <text class="label">训练项目</text>
+        <view class="selected-tags" wx:if="{{selectedTags.length > 0}}">
+          <text class="selected-tag" wx:for="{{selectedTags}}" wx:key="*this">{{item}}</text>
+        </view>
+        <text class="placeholder" wx:else>请选择训练项目</text>
+      </view>
+      <view class="section-item">
+        <text class="label">人数</text>
+        <input class="name-input" type="number" placeholder="请输入人数" bindinput="onInputMemberNum" />
+      </view>
     </view>
-    <view class="section-item">
-      <text class="label">名称</text>
-      <input class="name-input" placeholder="请输入活动名称" bindinput="onInput" />
+
+    <view class="section-container">
+      <view class="section-item supplement-item">
+        <text class="label">补充</text>
+        <textarea class="supplement-input" placeholder="请输入补充内容" bindinput="onInput" />
+      </view>
     </view>
-    <view class="section-item">
-      <text class="label">名称</text>
-      <input class="name-input" placeholder="请输入活动名称" bindinput="onInput" />
+  </scroll-view>
+
+  <view class="bottom-button">
+    <text class="publish-btn" bind:tap="handlePublish">发布活动</text>
+    <!-- <button class="publish-btn" bindtap="handlePublish">发布活动</button> -->
+  </view>
+</view>
+
+<view class="popup-mask" wx:if="{{showTrainingPopup}}" bindtap="hideTrainingPopup"></view>
+<view class="popup-content" wx:if="{{showTrainingPopup}}">
+  <view class="popup-title">训练项目</view>
+  <view class="popup-body">
+    <view class="tags-container">
+      <view class="tag" wx:for="{{selectedTags}}" wx:key="index">
+        {{item}}
+        <text class="tag-close" catchtap="removeTag" data-index="{{index}}">×</text>
+      </view>
+      <view class="tag-input-container">
+        <input class="tag-input" placeholder="输入标签" value="{{newTag}}" bindinput="onTagInput" bindconfirm="addTag" />
+      </view>
     </view>
-    <view class="section-item">
-      <text class="label">名称</text>
-      <input class="name-input" placeholder="请输入活动名称" bindinput="onInput" />
+    <view class="tag-list">
+      <view class="tag-item" wx:for="{{tagList}}" wx:key="*this" bindtap="selectTag" data-tag="{{item}}">
+        {{item}}
+      </view>
     </view>
   </view>
-
-  <view bind:tap="gotoMap">
-    <text>地图</text>
-  </view>
-
-  <button class="publish-btn" bindtap="handlePublish">发布活动</button>
 </view>
