@@ -100,12 +100,6 @@ Page({
     });
   },
 
-  onTimeChange: function(e) {
-    this.setData({
-      time: e.detail.value
-    });
-  },
-
   onStartTimeChange: function(e) {
     this.setData({
       startTime: e.detail.value
@@ -182,7 +176,11 @@ Page({
           address = address.substring(0, 10) + '...';
         }
         this.setData({
-          location: address
+          location: {
+            name: address,
+            latitude: res.latitude,
+            longitude: res.longitude
+          }
         });
         console.log('res: ', res);
       })
@@ -204,7 +202,7 @@ Page({
         userInfo: app.userInfo,
         date: this.data.date,
         startTime: this.data.startTime,
-        endTime: this.data.endTimes,
+        endTime: this.data.endTime,
         placeNum: this.data.placeNum,
         memberNum: this.data.memberNum,
         selectedTags: this.data.selectedTags,

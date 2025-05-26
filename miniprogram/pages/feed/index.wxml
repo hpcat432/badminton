@@ -1,9 +1,19 @@
 <view class="container">
   <view class="activity-list">
-    <view class="activity-item" wx:for="{{activityList}}" wx:key="_id">
+    <view class="activity-item" wx:for="{{activityList}}" wx:key="_id" bind:tap="goToActivityDetail" data-id="{{item._id}}">
       <view class="activity-title">{{item.title}}</view>
-      <view class="activity-content">{{item.startTime}}</view>
-      <view class="activity-content">{{item.endTime}}</view>
+      <view class="item-container">
+        <image class="item-icon" src="../../images/icons/coordinate.svg"></image>
+        <text class="activity-content">{{item.location.name}}</text>
+      </view>
+      <view class="item-container">
+        <image class="item-icon" src="../../images/icons/clock.svg"></image>
+        <text class="activity-content">{{item.formattedDate}} {{item.startTime}}-{{item.endTime}}</text>
+      </view>
+      <view class="item-container">
+        <image class="owner-avatar" src="{{item.owner.avatarUrl || '../../images/icons/avatar.png'}}"></image>
+        <text class="activity-content">{{item.owner.userName || '未知用户'}}  组织</text>
+      </view>
     </view>
   </view>
-</view> 
+</view>

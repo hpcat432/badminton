@@ -29,7 +29,7 @@
       </view>
       <view class="section-item" bind:tap="gotoMap">
         <text class="label">地点</text>
-        <text class="name-input">{{location}}</text>
+        <text class="name-input">{{location.name}}</text>
         <image class="icon" src="/images/arrow.svg" />
       </view>
       <view class="section-item">

@@ -1,0 +1,12 @@
+<view class="container">
+  <block wx:if="{{activityDetail}}">
+    <view class="activity-title">{{activityDetail.title}}</view>
+    <view class="activity-location" bindtap="handleClickLocation">
+      <image class="location-icon" src="/images/icons/coordinate.svg" mode="aspectFit"></image>
+      <text>{{activityDetail.location.name}}</text>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="loading">加载中...</view>
+  </block>
+</view> 

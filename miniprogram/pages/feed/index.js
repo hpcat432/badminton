@@ -15,6 +15,14 @@ Page({
     }
   },
 
+  // 格式化日期，添加星期几
+  formatDate: function(dateStr) {
+    const weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    const date = new Date(dateStr);
+    const weekDay = weekDays[date.getDay()];
+    return `${dateStr} (${weekDay})\u00A0\u00A0`;
+  },
+
   fetchActivityList() {
     wx.showLoading({
       title: '加载中...',
@@ -29,6 +37,12 @@ Page({
     }).then(res => {
       wx.hideLoading();
       const activityList = res.result.dataList || [];
+      // 处理每个活动的日期格式
+      activityList.forEach(item => {
+        if (item.date) {
+          item.formattedDate = this.formatDate(item.date);
+        }
+      });
       console.log('activityList size : ', activityList[0].owner)
       this.setData({
         activityList
@@ -41,5 +55,43 @@ Page({
         icon: 'none'
       });
     });
-  }
+  },
+
+  // 跳转到活动详情页
+  goToActivityDetail(e) {
+    try {
+      console.log('点击活动详情，事件对象：', e);
+      const activityId = e.currentTarget.dataset.id;
+      console.log('活动ID：', activityId);
+      
+      if (!activityId) {
+        console.error('活动ID不存在');
+        wx.showToast({
+          title: '活动信息不完整',
+          icon: 'none'
+        });
+        return;
+      }
+
+      wx.navigateTo({
+        url: `/pages/activityDetail/index?id=${activityId}`,
+        success: () => {
+          console.log('跳转成功');
+        },
+        fail: (err) => {
+          console.error('跳转失败：', err);
+          wx.showToast({
+            title: '跳转失败',
+            icon: 'none'
+          });
+        }
+      });
+    } catch (error) {
+      console.error('处理点击事件出错：', error);
+      wx.showToast({
+        title: '系统错误',
+        icon: 'none'
+      });
+    }
+  },
 }) 
