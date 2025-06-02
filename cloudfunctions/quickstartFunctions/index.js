@@ -10,6 +10,7 @@ const fetchActivityList = require('./fetchActivityList/index');
 const createActivity = require('./createActivity/index');
 const createUser = require('./user/createUser/index');
 const getUser = require('./user/getUser/index');
+const joinActivity = require('./joinActivity/index');
 const cloud = require('wx-server-sdk');
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }); // 使用当前云环境
@@ -79,6 +80,8 @@ exports.main = async (event, context) => {
       return await getUser.main(event, context);
     case 'createActivity':
       return await createActivity.main(event, context);
+    case 'joinActivity':
+      return await joinActivity.main(event, context);
     default:
       return {
         success: false,

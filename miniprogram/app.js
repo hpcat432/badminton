@@ -15,40 +15,82 @@ App({
     }
 
     this.globalData = {
-      openId: '',
+      openid: '',
       userInfo: null
     };
+
+    console.log('App onLaunch')
+    this.getOpenId();
+    this.getUserInfo();
+
+  },
+
+  getOpenId: function() {
+    wx.cloud.callFunction({
+      name: 'quickstartFunctions',
+      data: {
+        type: 'getOpenId'
+      },
+      config: {
+        env: 'cloud1-4gwxmwly93725352'
+      }
+    }).then(res => {
+      this.globalData.openid = res.result.openid
+    })
   },
 
   getUserInfo: function() {
-    // 检查是否已登录
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-          wx.getUserInfo({
-            success: res => {
-              this.globalData.userInfo = res.userInfo;
-              this.syncUserInfo(res.userInfo);
-            }
-          });
-        } else {
-          // 未授权，引导用户授权
-          wx.authorize({
-            scope: 'scope.userInfo',
-            success: () => {
-              wx.getUserInfo({
-                success: res => {
-                  this.globalData.userInfo = res.userInfo;
-                  this.syncUserInfo(res.userInfo);
-                }
-              });
-            }
-          });
-        }
+    wx.cloud.callFunction({
+      name: 'quickstartFunctions',
+      data: {
+        type: 'getUser'
+      },
+      config: {
+        env: 'cloud1-4gwxmwly93725352'
       }
+    }).then(res => {
+      let data = res.result.data.data
+      let info = {
+        avatarUrl: data[0].userInfo.avatar,
+        userName: data[0].userInfo.userName
+      }
+      if (data.length > 0) {
+        this.globalData.userInfo = info
+      }
+    }).catch(err => {
+      console.log(err)
     });
   },
+
+  // getUserInfo: function() {
+  //   // 检查是否已登录
+  //   wx.getSetting({
+  //     success: res => {
+  //       if (res.authSetting['scope.userInfo']) {
+  //         // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+  //         wx.getUserInfo({
+  //           success: res => {
+  //             this.globalData.userInfo = res.userInfo;
+  //             this.syncUserInfo(res.userInfo);
+  //           }
+  //         });
+  //       } else {
+  //         // 未授权，引导用户授权
+  //         wx.authorize({
+  //           scope: 'scope.userInfo',
+  //           success: () => {
+  //             wx.getUserInfo({
+  //               success: res => {
+  //                 this.globalData.userInfo = res.userInfo;
+  //                 this.syncUserInfo(res.userInfo);
+  //               }
+  //             });
+  //           }
+  //         });
+  //       }
+  //     }
+  //   });
+  // },
 
   syncUserInfo: function(userInfo) {
     // 调用云函数同步用户信息

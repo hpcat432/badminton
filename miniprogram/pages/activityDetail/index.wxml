@@ -1,12 +1,58 @@
-<view class="container">
-  <block wx:if="{{activityDetail}}">
-    <view class="activity-title">{{activityDetail.title}}</view>
-    <view class="activity-location" bindtap="handleClickLocation">
-      <image class="location-icon" src="/images/icons/coordinate.svg" mode="aspectFit"></image>
-      <text>{{activityDetail.location.name}}</text>
+<view class="page-container">
+  <!-- 自定义导航栏 -->
+  <view class="custom-nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="nav-back" bindtap="handleBack">
+      <image class="back-icon" src="../../images/back_white.svg" mode="aspectFit"></image>
     </view>
-  </block>
-  <block wx:else>
-    <view class="loading">加载中...</view>
-  </block>
-</view> 
+    <view class="nav-title">活动详情</view>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content-container">
+    <block wx:if="{{activityDetail}}">
+      <view class="activity-title">{{activityDetail.title}}</view>
+      <view class="activity-item">
+        <image class="time-icon" src="/images/clock.svg" mode="aspectFit"></image>
+        <text class="activity-item-text">{{activityDetail.formattedDate}} {{activityDetail.startTime}}-{{activityDetail.endTime}}</text>
+      </view>
+      <view class="activity-item" bindtap="handleClickLocation">
+        <image class="location-icon" src="/images/icons/coordinate_black.svg" mode="aspectFit"></image>
+        <text class="activity-item-text">{{activityDetail.location.name}}</text>
+        <image class="map-icon" src="/images/map.svg" mode="aspectFit"></image>
+      </view>
+      <view class="separate"></view>
+      <!-- 标签区域 -->
+      <view class="tags-container">
+        <view class="tags-list">
+          <view class="tag-item" wx:for="{{activityDetail.selectedTags}}" wx:key="index">
+            <text>{{item}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="activity-item-small">
+        <image class="time-icon" src="/images/icons/coordinate_black.svg" mode="aspectFit"></image>
+        <text class="activity-item-text">场地号：{{activityDetail.placeNum}}</text>
+      </view>
+      <view class="separate"></view>
+      <view class="activity-item-small">
+        <image class="time-icon" src="/images/icons/coordinate_black.svg" mode="aspectFit"></image>
+        <text class="activity-item-text">已报名 {{activityDetail.participants.length}}/{{activityDetail.memberNum}}</text>
+      </view>
+      <view class="participants-container">
+        <view class="participant-item" wx:for="{{activityDetail.participants}}" wx:key="index">
+          <image class="participant-avatar" src="{{item.avatarUrl || '../../images/avatar.png'}}" mode="aspectFill"></image>
+          <text class="participant-name">{{item.userName}}</text>
+        </view>
+      </view>
+      <view class="separate"></view>
+    </block>
+    <block wx:else>
+      <view class="loading">加载中...</view>
+    </block>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-area">
+    <view class="bottom-button" bind:tap="handleParticipate">{{isOwner ? 'test owner' : 'test'}}</view>
+  </view>
+</view>
