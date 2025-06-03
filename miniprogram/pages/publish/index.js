@@ -27,12 +27,43 @@ Page({
   onLoad(options) {
     this.checkOpenId()
     this.checkUserInfo()
+    this.checkEditInfo(options.id)
     console.log('onLoad tagList:', this.data.tagList)
     this.setData({
       tagList: ['高远球', '杀球', '网前球','吊球', '发球', '步伐']
     }, () => {
       console.log('after setData tagList:', this.data.tagList)
     })
+  },
+
+  /**
+   * 检查并渲染编辑信息
+   */
+  checkEditInfo: function(activityId) {
+    if (!activityId) return;
+    const db = wx.cloud.database();
+    db.collection('activity').doc(activityId).get()
+      .then(res => {
+        const activity = res.data;
+        // 渲染活动信息到页面
+        this.setData({
+          activityName: activity.title || '',
+          location: activity.location || '',
+          date: activity.date || '',
+          startTime: activity.startTime || '',
+          endTime: activity.endTime || '',
+          placeNum: activity.placeNum || '',
+          memberNum: activity.memberNum || '',
+          selectedTags: activity.selectedTags || [],
+        });
+      })
+      .catch(err => {
+        console.error('获取活动信息失败', err);
+        wx.showToast({
+          title: '获取活动信息失败',
+          icon: 'none'
+        });
+      });
   },
 
   checkUserInfo: function () {

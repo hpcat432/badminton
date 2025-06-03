@@ -4,7 +4,7 @@
     <view class="section-container">
       <view class="section-item">
         <text class="label">活动名称</text>
-        <input class="name-input-margin-right" placeholder="请输入活动名称" bindinput="onInput" />
+        <input class="name-input-margin-right" placeholder="请输入活动名称" bindinput="onInput" value="{{activityName}}" />
       </view>
       <view class="section-item">
         <text class="label">日期</text>
@@ -34,7 +34,7 @@
       </view>
       <view class="section-item">
         <text class="label">场地号</text>
-        <input class="name-input" placeholder="请输入场地号" bindinput="onInputPlaceNum" />
+        <input class="name-input" placeholder="请输入场地号" bindinput="onInputPlaceNum" value="{{placeNum}}" />
       </view>
     </view>
 
@@ -48,14 +48,14 @@
       </view>
       <view class="section-item">
         <text class="label">人数</text>
-        <input class="name-input" type="number" placeholder="请输入人数" bindinput="onInputMemberNum" />
+        <input class="name-input" type="number" placeholder="请输入人数" bindinput="onInputMemberNum" value="{{memberNum}}" />
       </view>
     </view>
 
     <view class="section-container">
       <view class="section-item supplement-item">
         <text class="label">补充</text>
-        <textarea class="supplement-input" placeholder="请输入补充内容" bindinput="onInput" />
+        <textarea class="supplement-input" placeholder="请输入补充内容" bindinput="onInput" value="{{supplement}}" />
       </view>
     </view>
   </scroll-view>
