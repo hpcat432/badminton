@@ -127,6 +127,7 @@
   border-top: 1rpx solid #e0e0e0;
   padding-bottom: env(safe-area-inset-bottom);
   padding-right: 40rpx;
+  gap: 20rpx;
 }
 
 .bottom-button {
@@ -135,6 +136,10 @@
   padding: 20rpx 40rpx;
   border-radius: 40rpx;
   font-size: 28rpx;
+}
+
+.edit-button {
+  background-color: #1ce692;
 }
 
 .tags-container {
@@ -196,4 +201,59 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   line-height: 1.2;
+}
+
+.popup-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.popup-content {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 24rpx;
+  z-index: 1001;
+  padding: 32rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  max-width: 600rpx;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 32rpx;
+}
+
+.popup-textarea {
+  width: 100%;
+  min-height: 120rpx;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 12rpx;
+  padding: 16rpx;
+  font-size: 28rpx;
+  margin-bottom: 32rpx;
+  box-sizing: border-box;
+}
+
+.popup-confirm-btn {
+  width: 80%;
+  height: 80rpx;
+  background: #150443;
+  color: #fff;
+  font-size: 32rpx;
+  border-radius: 40rpx;
+  text-align: center;
+  line-height: 80rpx;
 } 

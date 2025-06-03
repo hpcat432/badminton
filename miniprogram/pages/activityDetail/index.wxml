@@ -53,6 +53,19 @@
 
   <!-- 底部按钮 -->
   <view class="bottom-area">
-    <view class="bottom-button" bind:tap="handleParticipate">{{isOwner ? 'test owner' : 'test'}}</view>
+    <block wx:if="{{isOwner}}">
+      <view class="bottom-button" bind:tap="handleParticipate">{{isJoined ? '退坑' : '报名'}}</view>
+      <view class="bottom-button edit-button" bind:tap="handleEdit">编辑</view>
+    </block>
+    <block wx:else>
+      <view class="bottom-button" bind:tap="handleParticipate">{{isJoined ? '退坑' : '报名'}}</view>
+    </block>
+  </view>
+
+  <view class="popup-mask" wx:if="{{showConfirmPopup}}" bindtap="hideConfirmPopup"></view>
+  <view class="popup-content" wx:if="{{showConfirmPopup}}">
+    <view class="popup-title">填写备注</view>
+    <textarea class="popup-textarea" placeholder="请输入备注（可选）" value="{{participateRemark}}" bindinput="onRemarkInput" />
+    <button class="popup-confirm-btn" bindtap="confirmParticipate">确认报名</button>
   </view>
 </view>

@@ -123,7 +123,6 @@ Page({
   },
 
   uploadUserInfo: function () {
-    console.log(cloud.getWXContext().OPENID)
     if (this.data.userName.length <= 0 || !this.isValidAvatar()) {
       wx.showToast({
         title: "请设定头像和用户名",

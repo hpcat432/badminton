@@ -5,7 +5,10 @@ Page({
   data: {
     activityId: '',
     activityDetail: null,
-    statusBarHeight: 0
+    statusBarHeight: 0,
+    showConfirmPopup: false,
+    participateRemark: '',
+    isJoined: false  // 添加是否已报名状态
   },
 
   onLoad: function(options) {
@@ -51,10 +54,15 @@ Page({
         activity.tags = activity.selectTags || []
         // 检查是否是活动创建者
         const isOwner = activity.creatorId === app.globalData.openid
+        // 检查是否已报名
+        const isJoined = activity.participants.some(
+          participant => participant.openid === app.globalData.openid
+        )
         this.setData({
           activityDetail: activity,
           loading: false,
-          isOwner: isOwner
+          isOwner: isOwner,
+          isJoined: isJoined
         })
       })
       .catch(err => {
@@ -70,34 +78,111 @@ Page({
   },
 
   handleParticipate() {
-    if (this.isOwner()) {
-      console.log('活动创建者操作')
+    if (this.data.isJoined) {
+      // 如果已报名，则退出活动
+      this.exitActivity();
     } else {
-      console.log('参与者操作')
-      let userInfo = {
-        openid: app.globalData.openid,
-        ...app.globalData.userInfo
-      }
-      console.log('handleParticipate', userInfo)
-      wx.cloud.callFunction({
-        name: 'quickstartFunctions',
-        data: {
-          type: 'joinActivity',
-          activityId: this.data.activityId,
-          userInfo: userInfo
-        },
-        config: {
-          env: 'cloud1-4gwxmwly93725352'
-        }
-      }).then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      });
+      // 如果未报名，则弹出报名确认框
+      this.setData({ showConfirmPopup: true });
     }
   },
 
+  hideConfirmPopup() {
+    this.setData({ showConfirmPopup: false });
+  },
+
+  onRemarkInput(e) {
+    this.setData({ participateRemark: e.detail.value });
+  },
+
+  confirmParticipate() {
+    this.setData({ showConfirmPopup: false });
+    let userInfo = {
+      openid: app.globalData.openid,
+      ...app.globalData.userInfo,
+      remark: this.data.participateRemark
+    };
+    wx.cloud.callFunction({
+      name: 'quickstartFunctions',
+      data: {
+        type: 'joinActivity',
+        activityId: this.data.activityId,
+        userInfo: userInfo
+      },
+      config: {
+        env: 'cloud1-4gwxmwly93725352'
+      }
+    }).then(res => {
+      console.log(res.result)
+      if (res.result.code == -50001) {
+        wx.showToast({
+          icon: 'none',
+          title: res.result.message,
+        })
+      } else if (res.result.code === 0) {
+        wx.showToast({
+          title: '报名成功',
+        })
+        // 报名成功后刷新活动详情
+        this.getActivityDetail();
+      } else {
+        wx.showToast({
+          icon: 'none',
+          title: res.result.message || '报名失败',
+        })
+      }
+    }).catch(err => {
+      console.log(err)
+      wx.showToast({
+        icon: 'none',
+        title: '报名失败，请稍后重试',
+      })
+    });
+  },
+
+  exitActivity() {
+    wx.showModal({
+      title: '确认退出',
+      content: '确定要退出该活动吗？',
+      success: (res) => {
+        if (res.confirm) {
+          wx.cloud.callFunction({
+            name: 'quickstartFunctions',
+            data: {
+              type: 'exitActivity',
+              activityId: this.data.activityId
+            },
+            config: {
+              env: 'cloud1-4gwxmwly93725352'
+            }
+          }).then(res => {
+            console.log(res.result)
+            if (res.result.code === 0) {
+              wx.showToast({
+                title: '退出成功',
+              })
+              // 刷新活动详情
+              this.getActivityDetail();
+            } else {
+              wx.showToast({
+                icon: 'none',
+                title: res.result.message || '退出失败',
+              })
+            }
+          }).catch(err => {
+            console.log(err)
+            wx.showToast({
+              icon: 'none',
+              title: '退出失败，请稍后重试',
+            })
+          });
+        }
+      }
+    });
+  },
+
   isOwner() {
+    console.log('isOwner : ', app.globalData.openid)
     return this.data.activityDetail && this.data.activityDetail.creatorId === app.globalData.openid;
   },
 
@@ -131,5 +216,12 @@ Page({
         url: '/pages/feed/index'
       });
     }
+  },
+
+  handleEdit() {
+    // 跳转到编辑页面
+    wx.redirectTo({
+      url: `/pages/publish/index?id=${this.data.activityId}`
+    });
   }
 }) 
