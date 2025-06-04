@@ -62,7 +62,6 @@
 
   <view class="bottom-button">
     <text class="publish-btn" bind:tap="handlePublish">发布活动</text>
-    <!-- <button class="publish-btn" bindtap="handlePublish">发布活动</button> -->
   </view>
 </view>
 

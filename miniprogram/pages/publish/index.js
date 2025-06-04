@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    activityId: undefined,
     activityName: '',
     location: '',
     userInfo: null,
@@ -42,6 +43,9 @@ Page({
   checkEditInfo: function(activityId) {
     if (!activityId) return;
     const db = wx.cloud.database();
+    this.setData({
+      activityId: activityId
+    })
     db.collection('activity').doc(activityId).get()
       .then(res => {
         const activity = res.data;
@@ -224,20 +228,25 @@ Page({
     wx.showLoading({
       title: '发布中...',
     })
+    let type = this.data.activityId ? 'editActivity' : 'createActivity'
+    let data = {
+      type: type,
+      title: this.data.activityName,
+      location: this.data.location,
+      userInfo: app.userInfo,
+      date: this.data.date,
+      startTime: this.data.startTime,
+      endTime: this.data.endTime,
+      placeNum: this.data.placeNum,
+      memberNum: this.data.memberNum,
+      selectedTags: this.data.selectedTags,
+    }
+    if (this.data.activityId) {
+      data.activityId = this.data.activityId
+    }
     wx.cloud.callFunction({
       name: 'quickstartFunctions',
-      data: {
-        type: 'createActivity',
-        title: this.data.activityName,
-        location: this.data.location,
-        userInfo: app.userInfo,
-        date: this.data.date,
-        startTime: this.data.startTime,
-        endTime: this.data.endTime,
-        placeNum: this.data.placeNum,
-        memberNum: this.data.memberNum,
-        selectedTags: this.data.selectedTags,
-      },
+      data: data,
       config: {
         env: 'cloud1-4gwxmwly93725352'
       }

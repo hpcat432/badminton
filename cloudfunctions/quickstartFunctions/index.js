@@ -8,6 +8,7 @@ const fetchGoodsList = require('./fetchGoodsList/index');
 const genMpQrcode = require('./genMpQrcode/index');
 const fetchActivityList = require('./fetchActivityList/index');
 const createActivity = require('./createActivity/index');
+const editActivity = require('./createActivity/edit');
 const createUser = require('./user/createUser/index');
 const getUser = require('./user/getUser/index');
 const joinActivity = require('./joinActivity/index');
@@ -83,6 +84,8 @@ exports.main = async (event, context) => {
         return await getUser.main(event, context);
       case 'createActivity':
         return await createActivity.main(event, context);
+      case 'editActivity':
+        return await editActivity.main(event, context);
       case 'joinActivity':
         return await joinActivity.main(event, context);
       case 'exitActivity':
