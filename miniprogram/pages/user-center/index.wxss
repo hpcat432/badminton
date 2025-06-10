@@ -1,11 +1,84 @@
-.page_container {
+.page-container {
+  min-height: 100vh;
   background-color: #f5f5f5;
-  height: 100vh;
-  font-family: PingFang SC;
+  position: relative;
 }
 
 .top_bg {
-  height: 120rpx;
+  width: 100%;
+  height: 460rpx;
+  background: linear-gradient(180deg, #1ce692 0%, #19d385 100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 80rpx;
+}
+
+.avatar {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 50%;
+  border: 6rpx solid rgba(255, 255, 255, 0.8);
+  background-color: #ffffff;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.nickname {
+  margin-top: 24rpx;
+  font-size: 40rpx;
+  color: #ffffff;
+  font-weight: 600;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+}
+
+.content-container {
+  position: relative;
+  z-index: 2;
+  padding: 0 30rpx;
+  margin-top: 460rpx;
+}
+
+.section-container {
+  background-color: #ffffff;
+  border-radius: 24rpx;
+  padding: 0 30rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.08);
+}
+
+.section-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 36rpx 0;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.05);
+}
+
+.section-item:last-child {
+  border-bottom: none;
+}
+
+.section-item:active {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.label {
+  font-size: 32rpx;
+  color: #333333;
+  font-weight: 500;
+}
+
+.icon {
+  width: 36rpx;
+  height: 36rpx;
+  opacity: 0.5;
 }
 
 .main_content {
@@ -25,14 +98,6 @@
   top: -30rpx;
   margin-left: 30rpx;
   padding: 0rpx 60rpx;
-}
-
-.avatar {
-  width: 100rpx;
-  height: 100rpx;
-  /* background-color: #e5e5e5; */
-  border-radius: 50%;
-  transform: scale(1.8);
 }
 
 .username {

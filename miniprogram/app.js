@@ -50,11 +50,13 @@ App({
       }
     }).then(res => {
       let data = res.result.data.data
-      let info = {
-        avatarUrl: data[0].userInfo.avatar,
-        userName: data[0].userInfo.userName
-      }
       if (data.length > 0) {
+        let info = {
+          avatarUrl: data[0].userInfo.avatar,
+          userName: data[0].userInfo.userName,
+          gender: data[0].userInfo.gender,
+          zyLevel: data[0].userInfo.zyLevel
+        }
         this.globalData.userInfo = info
       }
     }).catch(err => {

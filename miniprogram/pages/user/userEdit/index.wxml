@@ -2,15 +2,44 @@
 <view class="container">
 
   <button class="avatar_container" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-    <image class="avatar" src="{{avatarUrl}}" mode="widthFix" />
+    <image class="avatar" src="{{avatarUrl ? avatarUrl : '../../../images/avatar.png'}}" mode="aspectFill"/>
   </button>
 
-  <view class="item_container">
-    <view class="left">
-      <text>昵称</text>
-      <input type="nickname" class="weui-input" placeholder="请输入昵称" bindinput="onInput" value="{{userName}}"/>
+  <!-- 信息栏目整体包裹 -->
+  <view class="info-card">
+    <view class="item_container">
+      <view class="left">
+        <text>昵称</text>
+        <input type="nickname" class="weui-input" placeholder="请输入昵称" bindinput="onInput" value="{{userName}}"/>
+      </view>
+    </view>
+
+    <!-- 性别选择 -->
+    <view class="item_container" bindtap="onShowGenderPicker">
+      <view class="left">
+        <text>性别</text>
+        <text class="gender-value">{{gender || '请选择'}}</text>
+      </view>
+      <image class="arrow_icon" src="/images/arrow.svg" />
+    </view>
+
+    <!-- 中羽等级输入 -->
+    <view class="item_container">
+      <view class="left">
+        <text>中羽等级</text>
+        <input type="number" class="weui-input" placeholder="自评等级" bindinput="onInputLevel" value="{{zyLevel}}"/>
+      </view>
     </view>
   </view>
 
   <button class="custom-button" bind:tap="onConfirmChange">确认</button>
+
+  <!-- 底部弹窗 -->
+  <view wx:if="{{showGenderPicker}}" class="gender-picker-mask" bindtap="onHideGenderPicker">
+    <view class="gender-picker-popup" catchtap="onGenderPickerTap">
+      <view class="gender-option" bindtap="onSelectGender" data-gender="男">男</view>
+      <view class="gender-option" bindtap="onSelectGender" data-gender="女">女</view>
+    </view>
+  </view>
+
 </view>

@@ -27,5 +27,6 @@ page {
 }
 
 :root {
-  --theme-color: #150443; /* 定义主题色 */
+  --theme-color: #1ce692; /* 定义主题色 */
+  --theme-color-light: #17ee94; /* 定义主题色 */
 }

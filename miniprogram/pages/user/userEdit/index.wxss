@@ -16,6 +16,7 @@
   height: 96rpx;
   border-bottom: 1rpx solid rgba(0, 0, 0, 0.08);
   background-color: #ffffff;
+  margin-left: 32rpx;
 }
 
 .right {
@@ -45,16 +46,85 @@
 }
 
 .arrow_icon {
-  width: 36rpx;
-  height: 36rpx;
+  width: 24rpx;
+  height: 24rpx;
 }
 
 .custom-button {
-    background-color: #150443;
-    color: white; /* 文字颜色改成白色 */
-    border-radius: 8px; /* 设置圆角，数值可根据需求调整 */
+    background-color: #46eca7;
+    color: black; /* 文字颜色改成白色 */
+    border-radius: 32px; /* 设置圆角，数值可根据需求调整 */
     border: none; /* 去除默认边框 */
     padding: 10px 20px; /* 设置内边距，使按钮更美观 */
     text-align: center; /* 文字居中 */
-    font-size: 16px; /* 设置文字大小 */
+    font-size: 18px; /* 设置文字大小 */
+    margin-top: 24rpx;
+}
+
+.gender-picker-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  z-index: 3000;
+  display: flex;
+  align-items: flex-end;
+}
+
+.gender-picker-popup {
+  width: 100vw;
+  background: #fff;
+  border-top-left-radius: 24rpx;
+  border-top-right-radius: 24rpx;
+  padding: 40rpx 0 20rpx 0;
+  box-shadow: 0 -4rpx 24rpx rgba(0,0,0,0.08);
+}
+
+.gender-option {
+  padding: 32rpx 0;
+  text-align: center;
+  font-size: 36rpx;
+  color: #333;
+  border-bottom: 1px solid #f0f0f0;
+}
+.gender-option:last-child {
+  border-bottom: none;
+}
+
+.gender-value {
+  margin-left: 32rpx;
+  color: #888;
+  font-size: 32rpx;
+}
+
+.bottom-btn-area {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  background: #fff;
+  padding: 32rpx 0 48rpx 0;
+  box-shadow: 0 -2rpx 16rpx rgba(0,0,0,0.04);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 1001;
+}
+
+.custom-button {
+  width: auto;
+  min-width: 180rpx;
+  margin-right: 40rpx;
+}
+
+.info-card {
+  background: #fff;
+  border-radius: 24rpx;
+  box-shadow: 0 2rpx 16rpx rgba(0,0,0,0.04);
+  overflow: hidden;
+  margin-top: 32rpx;
+  width: calc(100vw - 48rpx);
+  margin-left: 24rpx;
+  margin-right: 24rpx;
 }

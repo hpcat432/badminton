@@ -17,6 +17,7 @@
     "pages/cloudbaseModuleGuide/index",
     "pages/business/index",
     "pages/feed/index",
+    "pages/activity/list/index",
     "pages/publish/index",
     "pages/user/userEdit/index",
     "pages/activityDetail/index"
